@@ -4,8 +4,6 @@ service: default
 automatic_scaling:
   max_instances: 20
 
-service_account: github-actions-deploy@PROJECT_ID.iam.gserviceaccount.com
-
 env_variables:
   NODE_ENV: 'production'
 
