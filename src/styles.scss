@@ -1,0 +1,154 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material" as mat;
+
+@use "scss/custom-bootstrap";
+
+@use "scss/font-conf";
+
+@use "bootstrap-icons/font/bootstrap-icons.css";
+
+@use "tailwindcss" as *;
+
+@use "scss/custom-table-boostrap";
+
+html {
+  @include mat.theme(
+    (
+      color: (
+        theme-type: light,
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette
+      ),
+      typography: Lato,
+      density: 0
+    )
+  );
+} /* You can add global styles to this file, and also import other style files */
+
+.white-dialog-container .mat-mdc-dialog-surface {
+  background-color: #f8f9fa !important;
+}
+
+.white-menu-panel {
+  .mat-mdc-menu-content,
+  .mat-mdc-menu-panel {
+    background-color: #f8f9fa !important;
+  }
+}
+
+.form-control.is-invalid {
+  background-image: none !important;
+}
+
+.btn-actions-mat-icon {
+  padding: 6px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.btn-actions {
+  padding: 6px 10px;
+}
+
+.btn-actions-table {
+  padding: 8px 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+::-webkit-scrollbar-track {
+  background-color: #eeeeee;
+  border-radius: 50px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 10px;
+  background-color: #eeeeee;
+  border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--bs-primary);
+  border-radius: 20px;
+}
+
+strong.highlight {
+  background-color: #ffff0092;
+}
+
+.mat-mdc-dialog-surface {
+  border-radius: 12px !important;
+}
+
+.multiline-snackbar {
+  white-space: pre-wrap !important;
+  line-height: 1.5;
+}
+
+/* Estilos para el InfoWindow personalizado */
+/* Estos estilos se pueden agregar globalmente (styles.scss) o usar Angular ViewEncapsulation.None */
+
+.custom-info-window {
+  padding: 12px;
+  font-family: "Roboto", sans-serif;
+  border-radius: 8px;
+}
+
+.custom-info-window h3 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  color: #0f53ff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.custom-info-window p {
+  margin: 8px 0;
+  color: #333;
+  font-size: 14px;
+}
+
+.info-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.info-btn {
+  padding: 6px 12px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.info-btn:hover {
+  background-color: #e0e0e0;
+}
+
+.info-btn-primary {
+  background-color: #0f53ff;
+  color: white;
+  border-color: #0f53ff;
+}
+
+.info-btn-primary:hover {
+  background-color: #0040db;
+  border-color: #0040db;
+}
