@@ -52,5 +52,8 @@ jobs:
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
 
+    - name: Replace PROJECT_ID in app.yaml
+      run: sed -i 's/PROJECT_ID/${{ secrets.GCP_PROJECT_ID }}/g' app.yaml
+
     - name: Deploy to App Engine
       run: gcloud app deploy app.yaml --quiet
