@@ -86,6 +86,8 @@ describe('LoginService', () => {
       sub: '253e3e87-1981-4197-a140-eddb470b00af',
       iat: 1642694400,
       exp: 1642780800,
+      activityStatus: 'active',
+      username: 'Esteban.Bins',
     };
 
     // Mock jwtDecode

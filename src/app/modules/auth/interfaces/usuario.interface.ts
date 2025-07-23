@@ -16,6 +16,8 @@ export interface User {
   firstname: string;
   role: string;
   userId: string;
+  activityStatus: string;
+  username: string;
   sub: string;
   iat: number;
   exp: number;

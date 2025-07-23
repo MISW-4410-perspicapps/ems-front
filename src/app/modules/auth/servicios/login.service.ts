@@ -34,6 +34,8 @@ export class LoginService {
               sub: payload.sub || '',
               iat: payload.iat || 0,
               exp: payload.exp || 0,
+              activityStatus: payload.activityStatus || '',
+              username: payload.username || '',
             },
           };
           localStorage.setItem('usuario', JSON.stringify(payload.sub));
