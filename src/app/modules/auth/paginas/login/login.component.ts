@@ -54,7 +54,7 @@ export class LoginComponent {
     return of('');
   }
 
-  iniciarSesion() {
+  login() {
     const loginForm = this.loginForm.value;
     if (loginForm.username && loginForm.password) {
       this.loginService.iniciarSesion(loginForm.username, loginForm.password).subscribe({

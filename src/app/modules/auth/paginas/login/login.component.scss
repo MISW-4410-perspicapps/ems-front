@@ -173,6 +173,39 @@
   box-shadow: 0 0 0 2px rgba(248, 182, 16, 0.2);
 }
 
+.input-wrapper.error {
+  border: 2px solid #e53e3e; // Red border for error state
+  box-shadow: 0 0 0 2px rgba(229, 62, 62, 0.2);
+
+  .icon-container {
+    background: linear-gradient(135deg, #dc2626, #ef4444); // Red gradient for error
+  }
+
+  .custom-input {
+    color: #dc2626; // Red text for error
+
+    &::placeholder {
+      color: rgba(220, 38, 38, 0.7); // Lighter red for placeholder
+    }
+  }
+  .custom-input:focus {
+    color: #dc2626; // Keep the red text on focus in error state
+  }
+
+  // Keep the error styling when input is focused
+  &:has(.custom-input:focus) {
+    border: 2px solid #e53e3e;
+    box-shadow: 0 0 0 2px rgba(229, 62, 62, 0.2);
+  }
+}
+
+.error-message {
+  color: #dc2626;
+  font-size: 14px;
+  margin-top: 4px;
+  padding-left: 16px;
+}
+
 .toggle-password {
   background: transparent;
   border: none;
@@ -189,7 +222,6 @@
 
 .button-container {
   width: 100%;
-  max-width: 350px;
 }
 
 .login-button {
@@ -216,4 +248,11 @@
     outline: none;
     box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.5);
   }
+}
+
+.error-message {
+  color: #dc2626;
+  font-size: 14px;
+  margin-top: 4px;
+  padding-left: 16px;
 }
