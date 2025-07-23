@@ -1,21 +1,24 @@
+import { JwtPayload } from 'jwt-decode';
+
 export interface Usuario {
-  token: string;
   usuario: string;
   nombres: string;
   apellidos: string;
   fullName: string;
-  email: string;
-  phone: string;
 }
 
 export interface Login {
-  access_token: string;
+  token: string;
   user: User;
 }
 
 export interface User {
-  id: string;
-  username: string;
-  email: string;
+  firstname: string;
   role: string;
+  userId: string;
+  sub: string;
+  iat: number;
+  exp: number;
 }
+
+export interface CustomJwtPayload extends Omit<JwtPayload, 'exp' | 'iat' | 'sub'>, User {}

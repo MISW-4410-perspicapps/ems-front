@@ -76,28 +76,34 @@ describe('LoginService', () => {
   it('should log in user and save data to localStorage', () => {
     const mockUser = { username: 'testuser', password: 'testpassword' };
     const mockResponse = {
-      access_token: 'e77c0b8a-a7b9-4c31-a524-a7c32e87b248',
-      user: {
-        id: '253e3e87-1981-4197-a140-eddb470b00af',
-        username: 'Esteban.Bins',
-        email: 'Nola_Wiza72@gmail.com',
-        role: 'STAFF',
-      },
+      token: 'e77c0b8a-a7b9-4c31-a524-a7c32e87b248',
     };
 
+    const mockPayload = {
+      firstname: 'Esteban Bins',
+      role: 'STAFF',
+      userId: '253e3e87-1981-4197-a140-eddb470b00af',
+      sub: '253e3e87-1981-4197-a140-eddb470b00af',
+      iat: 1642694400,
+      exp: 1642780800,
+    };
+
+    // Mock jwtDecode
+    spyOn(service, 'getTokenPayload').and.returnValue(mockPayload);
     spyOn(router, 'navigate');
 
-    service.iniciarSesion(mockUser.username, mockUser.password).subscribe(usuario => {
-      expect(usuario).toEqual(mockResponse);
-      expect(localStorage.setItem).toHaveBeenCalledWith('token', mockResponse.access_token);
+    service.iniciarSesion(mockUser.username, mockUser.password).subscribe(response => {
+      expect(response).toEqual(mockResponse);
+      expect(localStorage.setItem).toHaveBeenCalledWith('token', mockResponse.token);
+      expect(localStorage.setItem).toHaveBeenCalledWith('usuario', JSON.stringify(mockPayload.sub));
       expect(localStorage.setItem).toHaveBeenCalledWith(
-        'usuario',
-        JSON.stringify(mockResponse.user),
+        'firstname',
+        JSON.stringify(mockPayload.firstname),
       );
       expect(router.navigate).toHaveBeenCalledWith(['/home']);
     });
 
-    const req = httpMock.expectOne(`${environment.apiUrlCCP}/api/v1/users/login`);
+    const req = httpMock.expectOne(`${environment.apiUrl}/auth/login`);
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(mockUser);
     req.flush(mockResponse);

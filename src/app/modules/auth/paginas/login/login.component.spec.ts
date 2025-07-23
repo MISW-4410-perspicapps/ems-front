@@ -82,11 +82,11 @@ describe('LoginComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call iniciarSesion when is correct form', () => {
+  it('should call login when is correct form', () => {
     component.loginForm.controls['username'].setValue('a.clavijo@pruebas.com');
     component.loginForm.controls['password'].setValue('123456');
 
-    component.iniciarSesion();
+    component.login();
   });
 
   it('should show error message when iniciarSesion fails', () => {
@@ -110,8 +110,8 @@ describe('LoginComponent', () => {
     component.loginForm.controls['username'].setValue('usuario');
     component.loginForm.controls['password'].setValue('contraseña');
 
-    // Llamar al método iniciarSesion
-    component.iniciarSesion();
+    // Llamar al método login
+    component.login();
 
     // Verificar que se llamó al método open del snackBar con el mensaje traducido
     expect(translateService.get).toHaveBeenCalledWith('LOGIN.ERROR_MESSAGE');

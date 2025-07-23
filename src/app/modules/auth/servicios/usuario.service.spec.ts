@@ -6,12 +6,14 @@ describe('UsuarioService', () => {
   let originalLocalStorage: Storage;
 
   const mockUser = {
-    access_token: 'e77c0b8a-a7b9-4c31-a524-a7c32e87b248',
+    token: 'e77c0b8a-a7b9-4c31-a524-a7c32e87b248',
     user: {
-      id: '253e3e87-1981-4197-a140-eddb470b00af',
-      username: 'Esteban.Bins',
-      email: 'Nola_Wiza72@gmail.com',
+      firstname: 'Esteban Bins',
       role: 'STAFF',
+      userId: '253e3e87-1981-4197-a140-eddb470b00af',
+      sub: '253e3e87-1981-4197-a140-eddb470b00af',
+      iat: 1642694400,
+      exp: 1642780800,
     },
   };
 
@@ -52,10 +54,10 @@ describe('UsuarioService', () => {
     service.usuario = mockUser;
     const user = service.usuario;
     expect(user).toEqual(mockUser);
-    expect(user.access_token).toEqual('e77c0b8a-a7b9-4c31-a524-a7c32e87b248');
-    expect(user.user.username).toEqual('Esteban.Bins');
-    expect(user.user.email).toEqual('Nola_Wiza72@gmail.com');
-    expect(user.user.role).toEqual('STAFF');
+    expect(user!.token).toEqual('e77c0b8a-a7b9-4c31-a524-a7c32e87b248');
+    expect(user!.user.firstname).toEqual('Esteban Bins');
+    expect(user!.user.role).toEqual('STAFF');
+    expect(user!.user.userId).toEqual('253e3e87-1981-4197-a140-eddb470b00af');
   });
 
   it('should call set usuario and set user correctly', () => {

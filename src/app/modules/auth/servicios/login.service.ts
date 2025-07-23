@@ -4,13 +4,14 @@ import { Router } from '@angular/router';
 import { tap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { UsuarioService } from './usuario.service';
-import { Login } from '../interfaces/usuario.interface';
+import { CustomJwtPayload, Login } from '../interfaces/usuario.interface';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  private apiUrl = environment.apiUrlCCP;
+  private apiUrl = environment.apiUrl;
 
   constructor(
     private http: HttpClient,
@@ -19,14 +20,37 @@ export class LoginService {
   ) {}
 
   iniciarSesion(username: string, password: string) {
-    return this.http.post<Login>(`${this.apiUrl}/api/v1/users/login`, { username, password }).pipe(
+    return this.http.post<any>(`${this.apiUrl}/auth/login`, { username, password }).pipe(
       tap(res => {
-        localStorage.setItem('token', res.access_token);
-        localStorage.setItem('usuario', JSON.stringify(res.user));
-        this.usuarioService.usuario = res;
-        this.router.navigate(['/home']);
+        localStorage.setItem('token', res.token);
+        const payload = this.getTokenPayload();
+        if (payload) {
+          const login: Login = {
+            token: res.token,
+            user: {
+              firstname: payload.firstname || '',
+              role: payload.role || '',
+              userId: payload.userId || '',
+              sub: payload.sub || '',
+              iat: payload.iat || 0,
+              exp: payload.exp || 0,
+            },
+          };
+          localStorage.setItem('usuario', JSON.stringify(payload.sub));
+          localStorage.setItem('firstname', JSON.stringify(payload.firstname));
+          this.usuarioService.usuario = login;
+          this.router.navigate(['/home']);
+        }
       }),
     );
+  }
+
+  getTokenPayload(): CustomJwtPayload | null {
+    const token = localStorage.getItem('token');
+    if (token) {
+      return jwtDecode<CustomJwtPayload>(token);
+    }
+    return null;
   }
 
   cerrarSesion() {
