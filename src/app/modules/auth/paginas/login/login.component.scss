@@ -1,49 +1,219 @@
-.container {
+/* Contenedor base con la imagen de fondo */
+.login-screen {
+  min-height: 100vh;
+  position: relative;
+  /* Aquí va tu imagen de fondo */
+  background-image: url("/assets/images/background.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* Para efecto parallax opcional */
+}
+
+/* Capa con efecto cristal sobre la imagen */
+.glass-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  /* From https://css.glass */
+  background: rgb(0 0 0 / 10%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Contenedor del formulario */
+.login-container {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Card blanco del formulario */
+.login-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow:
+    0 1px 5px rgba(0, 0, 0, 0.15),
+    1px 0px 4px rgba(0, 0, 0, 0.1),
+    inset 0px 1px 0 rgba(255, 255, 255, 0.8);
+  max-width: 85%;
+  width: 100%;
+  max-height: 90vh;
+  box-sizing: border-box;
+}
+
+.login-form-container {
+  flex: 0.4;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.container-image {
+  flex: 0.6;
+  background: radial-gradient(circle at center, #ffffff 40px, transparent 80%);
+  background-color: #ffeac7;
+  border-radius: 0px 20px 20px 0px;
+}
+
+.logo-image {
+  box-sizing: border-box;
+  padding: 113px;
+}
+
+.login-form-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  gap: 11.25rem;
-  padding: 64px 0px;
+  gap: 24px;
 
-  .logo {
-    width: 17.75rem;
-    height: 17.75rem;
-  }
-
-  .card-form {
-    padding: 2rem;
+  .login-form {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 29.0625rem;
-    height: 41.5625rem;
-  }
-
-  .container-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    align-content: center;
     align-items: center;
     width: 100%;
-    gap: 2rem;
+    padding: 40px;
+    gap: 24px;
 
-    form {
+    .form-title {
+      text-align: center;
+      color: #ffa153;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .form-subtitle {
+      text-align: center;
+      color: #383535;
+      font-size: 1.9rem;
+      font-weight: 700;
+      border-bottom: 4px solid #fecb2e;
+    }
+
+    .form-subtitle-container {
+      width: 100%;
+    }
+
+    .form-container {
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      gap: 2rem;
+      gap: 16px;
+      width: 100%;
     }
   }
+}
 
-  .title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin-bottom: 2rem;
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: white;
+  border-radius: 50px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  border: 2px solid transparent; // Para mantener el borde consistente
+}
+
+.icon-container {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f59e0b, #facc15); // orange to yellow
+  border-radius: 50px 0px 50px 50px;
+  flex-shrink: 0;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+.custom-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  height: 48px;
+  padding: 0 16px;
+  font-size: 16px;
+  color: #6b7280; // gray-500
+  background-color: white;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+
+  &::placeholder {
+    color: #9ca3af; // gray-400
+  }
+}
+
+.custom-input:focus {
+  border: none; // Remove the border since we'll style the wrapper
+  outline: none; // Remove default focus outline
+}
+
+.custom-input:focus + .toggle-password,
+.custom-input:focus {
+  outline: none;
+}
+
+.input-wrapper:has(.custom-input:focus) {
+  border: 2px solid #f8b610;
+  box-shadow: 0 0 0 2px rgba(248, 182, 16, 0.2);
+}
+
+.toggle-password {
+  background: transparent;
+  border: none;
+  padding: 0 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+
+  .eye-icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.button-container {
+  width: 100%;
+  max-width: 350px;
+}
+
+.login-button {
+  width: 100%;
+  height: 48px;
+  border: none;
+  border-radius: 9999px;
+  background: linear-gradient(to right, #f9bc16, #facc15);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 0.9;
   }
 
-  .button-login {
-    border-radius: calc(infinity * 1px);
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.5);
   }
 }
