@@ -3,11 +3,11 @@
   <div class="glass-layer"></div>
 
   <!-- Contenedor del formulario -->
-  <div class="login-container">
+  <main class="login-container">
     <div class="login-card flex">
       <div class="login-form-container">
         <div class="login-form">
-          <span class="form-title">Employee Management System</span>
+          <h1 class="form-title">Employee Management System</h1>
           <div class="avatar-container">
             <img
               src="/assets/images/avatar.png"
@@ -81,6 +81,7 @@
                   type="button"
                   class="toggle-password"
                   (click)="togglePasswordVisibility(passwordInput)"
+                  [attr.aria-label]="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'"
                 >
                   @if (showPassword) {
                     <!-- eye on -->
@@ -125,5 +126,5 @@
         <img src="/assets/images/employees-bg-card.png" alt="Logo" class="logo-image" />
       </div>
     </div>
-  </div>
+  </main>
 </div>
