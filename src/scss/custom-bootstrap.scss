@@ -1,14 +1,14 @@
 // Importar Bootstrap con sintaxis moderna y configuración de variables
-@use "bootstrap/scss/bootstrap" with (
+@use 'bootstrap/scss/bootstrap' with (
   $primary: #ffeac7,
   $font-family-sans-serif: (
-    "Lato",
+    'Lato',
     system-ui,
     -apple-system,
-    "Segoe UI",
-    "Helvetica Neue",
+    'Segoe UI',
+    'Helvetica Neue',
     Arial,
-    sans-serif
+    sans-serif,
   ),
   $body-bg: #f8f9fa
 );

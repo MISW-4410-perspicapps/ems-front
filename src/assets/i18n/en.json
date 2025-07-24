@@ -29,6 +29,7 @@
     "NOT_IMPLEMENTED_YET": "Not implemented yet"
   },
   "MENU": {
+    "DASHBOARD": "Dashboard",
     "RUTAS": "Routes",
     "BODEGAS": "Warehouses",
     "FABRICANTES": "Manufacturers",
