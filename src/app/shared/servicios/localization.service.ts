@@ -22,20 +22,20 @@ export class LocalizationService {
       currencyCode: 'COP',
       region: 'Colombia',
     },
-    {
-      langCode: 'es',
-      localeCode: 'es-ES',
-      name: 'Español (ES)',
-      currencyCode: 'EUR',
-      region: 'España',
-    },
-    {
-      langCode: 'en',
-      localeCode: 'en-US',
-      name: 'English (US)',
-      currencyCode: 'USD',
-      region: 'United States',
-    },
+    // {
+    //   langCode: 'es',
+    //   localeCode: 'es-ES',
+    //   name: 'Español (ES)',
+    //   currencyCode: 'EUR',
+    //   region: 'España',
+    // },
+    // {
+    //   langCode: 'en',
+    //   localeCode: 'en-US',
+    //   name: 'English (US)',
+    //   currencyCode: 'USD',
+    //   region: 'United States',
+    // },
   ];
 
   // Único subject para manejar toda la información de localización

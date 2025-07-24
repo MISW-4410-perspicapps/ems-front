@@ -14,6 +14,11 @@ export const routes: Routes = [
     canActivate: [validateTokenGuard],
     canActivateChild: [validateTokenGuard],
     children: [
+      {
+        path: 'dashboard',
+        loadChildren: () =>
+          import('./modules/dashboard/dashboard.routes').then(m => m.DASHBOARD_ROUTES),
+      },
       // {
       //   path: 'bodegas',
       //   loadChildren: () => import('./modules/bodegas/bodegas.routes').then(m => m.BODEGAS_ROUTES),

@@ -17,40 +17,40 @@ import { LoginService } from '../../../modules/auth/servicios/login.service';
 export class MenuComponent implements OnInit {
   menuItems: MenuItem[] = [
     {
-      nombre: 'MENU.RUTAS',
-      icono: 'delivery_truck_speed',
-      url: '/home/rutas',
+      nombre: 'MENU.DASHBOARD',
+      icono: 'analytics',
+      url: '/home/dashboard',
     },
-    {
-      nombre: 'MENU.BODEGAS',
-      icono: 'gite',
-      url: '/home/bodegas',
-    },
-    {
-      nombre: 'MENU.FABRICANTES',
-      icono: 'factory',
-      url: '/home/fabricantes',
-    },
-    {
-      nombre: 'MENU.VENDEDORES',
-      icono: 'person',
-      url: '/home/vendedores',
-    },
-    {
-      nombre: 'MENU.PLANES',
-      icono: 'checklist',
-      url: '/home/planes',
-    },
-    {
-      nombre: 'MENU.PRODUCTOS',
-      icono: 'shopping_cart',
-      url: '/home/productos',
-    },
-    {
-      nombre: 'MENU.VENTAS',
-      icono: 'price_change',
-      url: '/home/ventas',
-    },
+    // {
+    //   nombre: 'MENU.BODEGAS',
+    //   icono: 'gite',
+    //   url: '/home/bodegas',
+    // },
+    // {
+    //   nombre: 'MENU.FABRICANTES',
+    //   icono: 'factory',
+    //   url: '/home/fabricantes',
+    // },
+    // {
+    //   nombre: 'MENU.VENDEDORES',
+    //   icono: 'person',
+    //   url: '/home/vendedores',
+    // },
+    // {
+    //   nombre: 'MENU.PLANES',
+    //   icono: 'checklist',
+    //   url: '/home/planes',
+    // },
+    // {
+    //   nombre: 'MENU.PRODUCTOS',
+    //   icono: 'shopping_cart',
+    //   url: '/home/productos',
+    // },
+    // {
+    //   nombre: 'MENU.VENTAS',
+    //   icono: 'price_change',
+    //   url: '/home/ventas',
+    // },
   ];
 
   lenguajesDisponibles: LanguageConfig[] = [];
