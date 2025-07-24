@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LocalizationService } from './shared/servicios/localization.service';
+import { UsuarioService } from './modules/auth/servicios/usuario.service';
+import { LoginService } from './modules/auth/servicios/login.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +12,15 @@ import { LocalizationService } from './shared/servicios/localization.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
-  constructor(private localizationService: LocalizationService) {}
+export class AppComponent implements OnInit {
+  constructor(
+    private localizationService: LocalizationService,
+    private usuarioService: UsuarioService,
+    private loginService: LoginService,
+  ) {}
   title = 'ccp-project';
+
+  ngOnInit() {
+    this.loginService.inicializarUsuarioToken();
+  }
 }

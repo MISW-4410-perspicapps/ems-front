@@ -55,6 +55,33 @@ export class LoginService {
     return null;
   }
 
+  inicializarUsuarioToken() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const payload = this.getTokenPayload();
+      if (payload) {
+        const login: Login = {
+          token: token,
+          user: {
+            firstname: payload.firstname || '',
+            role: payload.role || '',
+            userId: payload.userId || '',
+            sub: payload.sub || '',
+            iat: payload.iat || 0,
+            exp: payload.exp || 0,
+            activityStatus: payload.activityStatus || '',
+            username: payload.username || '',
+          },
+        };
+        this.usuarioService.usuario = login;
+      }
+    } else {
+      localStorage.removeItem('token');
+      localStorage.removeItem('usuario');
+      this.router.navigate(['/auth/login']);
+    }
+  }
+
   cerrarSesion() {
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
