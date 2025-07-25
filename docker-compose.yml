@@ -11,3 +11,7 @@ services:
       - NODE_ENV=production
     networks:
       - ems-network
+
+networks:
+  ems-network:
+    driver: bridge
