@@ -41,7 +41,14 @@ export class LoginService {
           localStorage.setItem('usuario', JSON.stringify(payload.sub));
           localStorage.setItem('firstname', JSON.stringify(payload.firstname));
           this.usuarioService.usuario = login;
-          this.router.navigate(['/home']);
+          // this.router.navigate(['/home']);
+          this.llamarLegacyLogin().subscribe({
+            next: result => console.log('result:', result),
+            error: error => {
+              console.error('Error during legacy login:', error);
+              this.router.navigate(['/auth/login']);
+            },
+          });
         }
       }),
     );
@@ -86,5 +93,9 @@ export class LoginService {
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
     this.router.navigate(['/auth/login']);
+  }
+
+  llamarLegacyLogin() {
+    return this.http.get<any>(`${this.apiUrl}/api/legacy/dashboard`);
   }
 }
