@@ -43,7 +43,10 @@ export class LoginService {
           this.usuarioService.usuario = login;
           // this.router.navigate(['/home']);
           this.llamarLegacyLogin().subscribe({
-            next: result => console.log('result:', result),
+            next: result => {
+              console.log('result:', result);
+              this.router.navigate(['/home']);
+            },
             error: error => {
               console.error('Error during legacy login:', error);
               this.router.navigate(['/auth/login']);

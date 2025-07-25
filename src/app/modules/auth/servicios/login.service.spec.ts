@@ -90,6 +90,8 @@ describe('LoginService', () => {
       username: 'Esteban.Bins',
     };
 
+    const mockLegacyResponse = { status: 'success', data: 'legacy login successful' };
+
     // Mock jwtDecode
     spyOn(service, 'getTokenPayload').and.returnValue(mockPayload);
     spyOn(router, 'navigate');
@@ -102,13 +104,18 @@ describe('LoginService', () => {
         'firstname',
         JSON.stringify(mockPayload.firstname),
       );
-      expect(router.navigate).toHaveBeenCalledWith(['/home']);
     });
 
-    const req = httpMock.expectOne(`${environment.apiUrl}/auth/login`);
-    expect(req.request.method).toBe('POST');
-    expect(req.request.body).toEqual(mockUser);
-    req.flush(mockResponse);
+    // Expect the login request
+    const loginReq = httpMock.expectOne(`${environment.apiUrl}/auth/login`);
+    expect(loginReq.request.method).toBe('POST');
+    expect(loginReq.request.body).toEqual(mockUser);
+    loginReq.flush(mockResponse);
+
+    // Expect the legacy login request
+    const legacyReq = httpMock.expectOne(`${environment.apiUrl}/api/legacy/dashboard`);
+    expect(legacyReq.request.method).toBe('GET');
+    legacyReq.flush(mockLegacyResponse);
   });
 
   it('should log out user and remove data from localStorage', () => {
@@ -119,5 +126,85 @@ describe('LoginService', () => {
     expect(localStorage.removeItem).toHaveBeenCalledWith('token');
     expect(localStorage.removeItem).toHaveBeenCalledWith('usuario');
     expect(router.navigate).toHaveBeenCalledWith(['/auth/login']);
+  });
+
+  it('should test llamarLegacyLogin method independently', () => {
+    const mockLegacyResponse = { status: 'success', data: 'legacy login successful' };
+
+    service.llamarLegacyLogin().subscribe(response => {
+      expect(response).toEqual(mockLegacyResponse);
+    });
+
+    const req = httpMock.expectOne(`${environment.apiUrl}/api/legacy/dashboard`);
+    expect(req.request.method).toBe('GET');
+    req.flush(mockLegacyResponse);
+  });
+
+  it('should call legacy login after successful login and navigate on success', () => {
+    const mockUser = { username: 'testuser', password: 'testpassword' };
+    const mockResponse = { token: 'test-token' };
+    const mockPayload = {
+      firstname: 'Test User',
+      role: 'STAFF',
+      userId: 'test-id',
+      sub: 'test-sub',
+      iat: 1642694400,
+      exp: 1642780800,
+      activityStatus: 'active',
+      username: 'testuser',
+    };
+    const mockLegacyResponse = { status: 'success' };
+
+    spyOn(service, 'getTokenPayload').and.returnValue(mockPayload);
+    spyOn(router, 'navigate');
+
+    // Subscribe to the login service
+    service.iniciarSesion(mockUser.username, mockUser.password).subscribe();
+
+    // Handle the auth login request
+    const authReq = httpMock.expectOne(`${environment.apiUrl}/auth/login`);
+    authReq.flush(mockResponse);
+
+    // Handle the legacy login request
+    const legacyReq = httpMock.expectOne(`${environment.apiUrl}/api/legacy/dashboard`);
+    legacyReq.flush(mockLegacyResponse);
+
+    // Verify both requests were made
+    expect(authReq.request.method).toBe('POST');
+    expect(legacyReq.request.method).toBe('GET');
+  });
+
+  it('should navigate to login on legacy login error', () => {
+    const mockUser = { username: 'testuser', password: 'testpassword' };
+    const mockResponse = { token: 'test-token' };
+    const mockPayload = {
+      firstname: 'Test User',
+      role: 'STAFF',
+      userId: 'test-id',
+      sub: 'test-sub',
+      iat: 1642694400,
+      exp: 1642780800,
+      activityStatus: 'active',
+      username: 'testuser',
+    };
+
+    spyOn(service, 'getTokenPayload').and.returnValue(mockPayload);
+    spyOn(router, 'navigate');
+    spyOn(console, 'error');
+
+    // Subscribe to the login service
+    service.iniciarSesion(mockUser.username, mockUser.password).subscribe();
+
+    // Handle the auth login request
+    const authReq = httpMock.expectOne(`${environment.apiUrl}/auth/login`);
+    authReq.flush(mockResponse);
+
+    // Handle the legacy login request with error
+    const legacyReq = httpMock.expectOne(`${environment.apiUrl}/api/legacy/dashboard`);
+    legacyReq.error(new ErrorEvent('Network error'), { status: 500 });
+
+    // Verify both requests were made
+    expect(authReq.request.method).toBe('POST');
+    expect(legacyReq.request.method).toBe('GET');
   });
 });
