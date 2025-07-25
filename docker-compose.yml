@@ -1,0 +1,35 @@
+services:
+  ems-front:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ems-front-app
+    ports:
+      - "4200:80"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    networks:
+      - ems-network
+
+  # Servicio de desarrollo (opcional)
+  ems-front-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: ems-front-dev
+    ports:
+      - "4200:4200"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    profiles:
+      - dev
+    networks:
+      - ems-network
+
+networks:
+  ems-network:
+    driver: bridge
