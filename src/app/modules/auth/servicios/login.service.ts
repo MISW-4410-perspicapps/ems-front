@@ -42,7 +42,6 @@ export class LoginService {
           localStorage.setItem('firstname', JSON.stringify(payload.firstname));
           this.usuarioService.usuario = login;
 
-          document.cookie = `auth_token=${res.token}; path=/; secure; SameSite=Strict; max-age=3600`;
           window.location.href = environment.legacyApiUrl;
         }
       }),
